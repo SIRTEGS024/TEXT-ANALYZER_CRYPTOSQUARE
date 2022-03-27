@@ -42,10 +42,31 @@ function encodeSentence(sentence) {
   }
 }
 
+function maskOffensiveWord(passage) {
+  passage = passage.toLowerCase();
+  let error = errorCheck(passage);
+  if (error) {
+    return error;
+  }
+  let offensiveArray =  ["biffaroni","loopdaloop","zoinks","muppeteer"];
+  let retArray = [];
+  let textArray = passage.split(" ");
+  textArray.forEach(function (element) {
+    offensiveArray.forEach(function (oElement) {
+      if (element === oElement) {
+        element = encodeSentence(element);
+      }
+    })
+    retArray.push(element);
+  });
+  return retArray.join(' ');
+}
+
+
 
 // User Interface Logic
 $(document).ready(function () {
-  $("#nin").submit(function (event) {
+  $("#output1").submit(function (event) {
     event.preventDefault();
     $(".alert").hide();
     let sentence = $("#sentence").val();
@@ -53,10 +74,25 @@ $(document).ready(function () {
     if (codedSentence === "error: no input") {
       $(".alert").show();
     } else {
-      $("#result").text(encodeSentence(sentence));
+      $("#result1").text(encodeSentence(sentence));
     }
   });
 });
+
+$(document).ready(function () {
+  $("#output2").submit(function (event) {
+    event.preventDefault();
+    $(".alert").hide();
+    let sentence1 = $("#sentence1").val();
+    let maskedSentence = maskOffensiveWord(sentence1);
+    if (maskedSentence === "error: no input") {
+      $(".alert").show();
+    } else {
+      $("#result2").text(maskOffensiveWord(sentence1));
+    }
+  });
+});
+
 
 
 

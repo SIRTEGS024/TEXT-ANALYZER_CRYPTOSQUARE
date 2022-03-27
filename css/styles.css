@@ -12,3 +12,8 @@ text-align: center;
   text-align: center;
   margin: 30px;
 }
+.alert1 {
+  display: none;
+  text-align: center;
+  margin: 30px;
+}
