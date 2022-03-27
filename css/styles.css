@@ -1,0 +1,14 @@
+#bab{
+text-align: center;
+}
+.form-control{
+  text-align: center;
+}
+#gax{
+  display: none;
+}
+.alert {
+  display: none;
+  text-align: center;
+  margin: 30px;
+}
