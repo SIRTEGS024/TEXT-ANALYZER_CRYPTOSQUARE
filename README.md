@@ -6,23 +6,41 @@ _This page has a form that allows the user to enter a message. After pressing th
 
 ## Specifications
 
-* Program will return error when field is submitted blank.
+* Program will return empty string when field is submitted blank.
 * Program will downcase all letters, remove any special characters and spaces.
 * Program will not encode single letter inputs.
 * If input length results in a perfect square, letters are sorted into columns equivalent to square root value and outputted in code blocks with the length of 5 (last block may be less than 5).
 * If input length is not a perfect square, letters are sorted into columns corresponding to the first perfect square larger than the input and outputted in code blocks with the length of 5 (last block may be less than 5).
 
-# _Text-Analyzer1_
+# _Text-Analyzer_
 
 ## Description
 
-_This a form that encrypts offensive words using Cryptosquare  . For the purpose of this application, there are only four offensive words : zoinks, muppeteer, biffaroni, and loopdaloop._
+_This a form that encrypts offensive words using Cryptosquare and makes a selected word from the passage bold  . For the purpose of this application, there are only four offensive words : zoinks, muppeteer, biffaroni, and loopdaloop._
 
-## Specifications
+## Test
+Describe: boldPassage()
 
-* Program will return error when field is submitted blank.
-* Program will downcase all letters.
-* Program will only encode the specified offensive words using the cryptosquare method. 
+Test: "It should return a non-matching word in a p tag."
+Code:
+const word = "hello";
+const text = "yo";
+boldPassage(word, text);
+Expected Output: "<p>yo</p>"
+
+Test: "It should return a matching word in a b tag."
+Code:
+const word = "hello";
+const text = "hello";
+boldPassage(word, text);
+Expected Output: "<p><b>hello</b></p>"
+
+Test: "It should wrap words that match in `b` tags but not words that don't."
+Code:
+const word = "hello";
+const text = "hello there";
+boldPassage(word, text);
+Expected Output: "<p><b>hello</b> there</p>"
 
 ## Setup/Installation Requirements
 

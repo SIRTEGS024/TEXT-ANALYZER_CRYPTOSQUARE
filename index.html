@@ -17,31 +17,26 @@
     <form id="output1">
       <div class="form-group">
         <br><br>
-        <h1 id="bab">ENTER A SENTENCE TO ENCODE USING CRYPTO</h1>
+        <h1 id="bab">ENTER A SENTENCE TO ENCODE USING CRYPTOSQUARE</h1>
         <label for="exampleInputEmail1"></label>
         <input type="text" class="form-control" id="sentence"> <br>
       </div>
       <button class="btn btn-primary" type="submit">Submit form</button>
     </form>
-<div id="result1">
-</div>
-<div class="alert alert-danger" role="alert">
-  Please enter a valid message before hitting submit.
-</div>
+ <div id="result1">
+</div><br><br>
 <form id="output2">
   <div class="form-group">
-    <br><br>
-    <h1 id="bab">ENTER A SENTENCE:</h1>
-    <label for="exampleInputEmail1"></label>
-    <input type="text" class="form-control" id="sentence1"> <br>
+    <h1>Input a text passage :</h1>
+    <textarea id="text-passage" name="text-passage" class="form-control"></textarea>
+    <h1> enter a word to make bold in the passage:</h1>
+    <input type="text" id="word" name="word" class="form-control">
+    <br>
+    <button type="submit" class="btn btn-success" id="submitButton">Submit</button>
   </div>
-  <button class="btn btn-primary" type="submit">Submit form</button>
 </form>
-<div id="result2">
-</div>
-<div class="alert1 alert-danger" role="alert"> 
-Please enter a valid message before hitting submit.
-</div>
+<span id="bolded-passage"></span>
+<span id="topWord"></span></p>
   </div>
 </body>
 
