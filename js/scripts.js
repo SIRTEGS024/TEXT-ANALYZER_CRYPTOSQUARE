@@ -1,3 +1,4 @@
+// Utility logic
 function errorCheck(sentence) {
   return (sentence.trim().length === 0);
 }
@@ -5,7 +6,6 @@ function errorCheck(sentence) {
 function errorCheck2(word, passage) {
   return ((passage.trim().length === 0) || (word.trim().length === 0));
 }
-
 
 function filterSentence(sentence) {
   sentence = sentence.toLowerCase();
@@ -19,7 +19,7 @@ function filterSentence2(sentence) {
   return sentence;
 }
 
-
+// Business Logic
 function encodeSentence(sentence) {
   sentence = filterSentence(sentence);
   if (errorCheck(sentence)) {
@@ -70,18 +70,19 @@ function maskOffensiveWord(passage) {
 function wordMatch(wordOne, wordTwo) {
   wordOne = filterSentence(wordOne)
   wordTwo = filterSentence(wordTwo)
-
-  return wordOne.toLowerCase().includes(wordOne.toLowerCase()) && wordOne.toLowerCase() === wordTwo.toLowerCase();
+  return wordTwo.toLowerCase().includes(wordOne.toLowerCase()) && wordOne.toLowerCase() === wordTwo.toLowerCase();
 }
 
-function boldPassage(word, passage) {
-  if (errorCheck2(word, passage)) {
+function boldPassage(word, text) {
+  if (errorCheck2(word, text)) {
     return "";
   }
+  word = word.toLowerCase();
+  text = text.toLowerCase();
   let offensiveArray = ["biffaroni", "loopdaloop", "zoinks", "muppeteer"];
   let htmlString = "<p>";
-  let passageArray = passage.split(" ");
-  passageArray.forEach(function (element, index) {
+  let textArray = text.split(" ");
+  textArray.forEach(function (element, index) {
     if (wordMatch(element, word)) {
       htmlString = htmlString.concat("<b>" + element + "</b>");
     }
@@ -93,7 +94,7 @@ function boldPassage(word, passage) {
       htmlString = htmlString.concat(element);
     }
     offensiveArray.forEach(function (off) {
-      if (index !== (passageArray.length - 1 && passageArray.length - 1 !== off)) {
+      if (index !== (textArray.length - 1 && textArray.length - 1 !== off)) {
         htmlString = htmlString.concat(" ");
       }
     });
@@ -121,37 +122,21 @@ function topThreeWords(text) {
   }
   text = filterSentence2(text);
   let textArray = text.split(" ");
-
-
-  let topmost = 0;
-  let topmostWord = "";
-  let secondMost = 0;
-  let secondWord = "";
-  let thirdMost = 0;
-  let thirdWord = "";
+  let maxWord = ""
+  let maxCount = 0;
   let result = "";
   textArray.forEach(function (element) {
-
-
-    let numberOfTimes = numberOfOccurrencesInText(element, text);
-    if (numberOfTimes > topmost) {
-      topmost = numberOfTimes;
-      topmostWord = element;
-    } else if (numberOfTimes > secondMost) {
-      secondMost = numberOfTimes;
-      secondWord = element;
-    } else if (numberOfTimes > thirdMost) {
-      thirdMost = numberOfTimes;
-      thirdWord = element;
-    }
-
-
-    result = topmostWord + " " + topmost + "<br>" + secondWord + " " + secondMost + "<br>" + thirdWord + " " + thirdMost;
-
+    let wordCount = numberOfOccurrencesInText(element, text);           
+    if (wordCount > maxCount) {
+      maxCount = wordCount;
+      maxWord = element;
+    }                                                          
+    result = maxWord + " " + maxCount;
   });
-
   return result;
 }
+
+
 
 
 // User Interface Logic
@@ -172,7 +157,12 @@ $(document).ready(function () {
     let boldedPassage = boldPassage(word, sentence1);
     let maskedBoldPassage = maskOffensiveWord(boldedPassage)
     $("#bolded-passage").html(maskedBoldPassage);
-    $("#topWord").html(topThreeWords(sentence1));
+    let topmostWord = topThreeWords(sentence1);
+    let sentence2 = sentence1.replace(topmostWord, "");
+    let secondWord = topThreeWords(sentence2);
+    let sentence3 = sentence2.replace(secondWord, "");
+    let thirdWord = topThreeWords(sentence3);
+    $("#topWord").html(topmostWord + "<br>" + secondWord + "<br>" + thirdWord);
   });
 });
 
